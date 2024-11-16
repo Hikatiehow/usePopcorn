@@ -1,0 +1,17 @@
+[33mcommit 4452f32be953184eac95c28920be54c1e9f7bba2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Katie Power <Powerk8@tcd.ie>
+Date:   Sat Nov 16 15:06:56 2024 +0000
+
+    Remove passing in redundant props
+
+[33mcommit 710129561845b3fc6b4402711907fec6f83e9fa6[m
+Author: Katie Power <Powerk8@tcd.ie>
+Date:   Mon Nov 11 14:25:41 2024 +0000
+
+    Refactor to use reusable Box component
+
+[33mcommit af64cb59e3007664e995d05c922e7802eba01a9f[m
+Author: Katie Power <Powerk8@tcd.ie>
+Date:   Tue Nov 5 19:46:29 2024 +0000
+
+    Initial Commit with Component Composition

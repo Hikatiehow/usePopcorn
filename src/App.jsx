@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Box from "./Box";
 import SearchBox from "./SearchBox";
@@ -6,6 +6,8 @@ import NumResults from "./NumResults";
 import MovieList from "./MovieList";
 import WatchedList from "./WatchedList";
 import WatchedSummary from "./WatchedSummary";
+import Loader from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 
 const tempMovieData = [
   {
@@ -54,17 +56,42 @@ const tempWatchedData = [
   },
 ];
 
-// const APIKEY = "2d4808a2";
+const APIKEY = "2d4808a2";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // const url = `https://www.omdbapi.com/?apikey=${APIKEY}&s=interstellar`;
+  const query = "interstellar";
 
-  // fetch(url)
-  //   .then((res) => res.json())
-  //   .then((data) => setMovies(data.Search));
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`
+        );
+        if (!res.ok) {
+          throw new Error("Something went wrong with fetching Movies");
+        }
+        console.log("Response is", res);
+        const data = await res.json();
+        if (data.Response === "False") {
+          throw new Error("Movie not Found");
+        }
+        setMovies(data.Search);
+        console.log(data.Search);
+      } catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchMovies();
+  }, []);
   return (
     <>
       <NavBar>
@@ -74,7 +101,9 @@ export default function App() {
 
       <main className="main">
         <Box>
-          <MovieList movies={movies} />
+          {isLoading && <Loader />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
