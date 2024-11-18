@@ -1,6 +1,6 @@
-function MovieListItem({ movie }) {
+function MovieListItem({ movie, onClick }) {
   return (
-    <li>
+    <li onClick={onClick}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
