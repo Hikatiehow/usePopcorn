@@ -24,6 +24,12 @@ export default function App() {
     setSelectedID(null);
   }
 
+  function handleAddWatchedMovie(movie) {
+    console.log("handling add watched movie", movie);
+    const exists = watched.some((item) => item.imdbID === movie.imdbID);
+    !exists && setWatched((oldWatched) => [...oldWatched, movie]);
+  }
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -79,6 +85,7 @@ export default function App() {
               <MovieDetails
                 selectedID={selectedID}
                 onCloseMovie={onCloseMovie}
+                handleAddWatchedMovie={handleAddWatchedMovie}
               />
             ) : (
               <>

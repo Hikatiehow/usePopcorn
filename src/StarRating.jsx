@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Star from "./Star";
 
-export default function StarRating({ max = 5, color, size }) {
+export default function StarRating({ max = 5, color, size, onSetRating }) {
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
 
@@ -39,6 +39,7 @@ export default function StarRating({ max = 5, color, size }) {
   // Function to handle star click event and update the rating state
   function handleStarClick(rating) {
     setRating(rating);
+    onSetRating(rating);
   }
 
   function handleStarHoverOn(rating) {

@@ -5,10 +5,11 @@ import ErrorMessage from "./ErrorMessage";
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
-function MovieDetails({ selectedID, onCloseMovie }) {
+function MovieDetails({ selectedID, onCloseMovie, handleAddWatchedMovie }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [userRating, setUserRating] = useState(null);
 
   const {
     Title: title,
@@ -22,6 +23,21 @@ function MovieDetails({ selectedID, onCloseMovie }) {
     Director: director,
     Genre: genre,
   } = movie;
+
+  function addToWatchedList() {
+    const newWatchedMovie = {
+      imdbID: selectedID,
+      title,
+      year,
+      poster,
+      userRating,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+    };
+
+    handleAddWatchedMovie(newWatchedMovie);
+    onCloseMovie();
+  }
 
   useEffect(() => {
     async function fetchMovieDetails() {
@@ -75,8 +91,14 @@ function MovieDetails({ selectedID, onCloseMovie }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating max={10} size={28} />
+              <StarRating max={10} size={28} onSetRating={setUserRating} />
             </div>
+
+            {userRating && (
+              <button className="btn-add" onClick={addToWatchedList}>
+                I watched this!
+              </button>
+            )}
 
             <p>
               <em>{plot}</em>
