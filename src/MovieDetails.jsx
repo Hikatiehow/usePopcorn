@@ -5,11 +5,19 @@ import ErrorMessage from "./ErrorMessage";
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
-function MovieDetails({ selectedID, onCloseMovie, handleAddWatchedMovie }) {
+function MovieDetails({
+  selectedID,
+  onCloseMovie,
+  handleAddWatchedMovie,
+  watchedMovies,
+}) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [userRating, setUserRating] = useState(null);
+
+  const watchedMovie = watchedMovies.find((item) => item.imdbID === selectedID);
+  //   console.log("movie is in the watched list", exists);
 
   const {
     Title: title,
@@ -91,14 +99,23 @@ function MovieDetails({ selectedID, onCloseMovie, handleAddWatchedMovie }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating max={10} size={28} onSetRating={setUserRating} />
-            </div>
+              {watchedMovie ? (
+                <b>
+                  You rated this movie: {watchedMovie.userRating}
+                  <span>⭐</span>
+                </b>
+              ) : (
+                <>
+                  <StarRating max={10} size={28} onSetRating={setUserRating} />
 
-            {userRating && (
-              <button className="btn-add" onClick={addToWatchedList}>
-                I watched this!
-              </button>
-            )}
+                  {userRating && (
+                    <button className="btn-add" onClick={addToWatchedList}>
+                      + Add to list
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
 
             <p>
               <em>{plot}</em>

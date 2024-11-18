@@ -1,6 +1,10 @@
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+function formatNumber(num) {
+  return num % 1 === 0 ? num : parseFloat(num.toFixed(2));
+}
+
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
@@ -16,15 +20,15 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{formatNumber(avgImdbRating)}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{formatNumber(avgUserRating)}</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{formatNumber(avgRuntime)} min</span>
         </p>
       </div>
     </div>

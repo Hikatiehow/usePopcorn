@@ -1,4 +1,4 @@
-function WatchedListItem({ movie }) {
+function WatchedListItem({ movie, onDeleteItem }) {
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -16,6 +16,12 @@ function WatchedListItem({ movie }) {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
+        <button
+          onClick={() => onDeleteItem(movie.imdbID)}
+          className="btn-delete"
+        >
+          X
+        </button>
       </div>
     </li>
   );
