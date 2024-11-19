@@ -17,7 +17,6 @@ function MovieDetails({
   const [userRating, setUserRating] = useState(null);
 
   const watchedMovie = watchedMovies.find((item) => item.imdbID === selectedID);
-  //   console.log("movie is in the watched list", exists);
 
   const {
     Title: title,
@@ -75,6 +74,14 @@ function MovieDetails({
     fetchMovieDetails();
   }, [selectedID]);
 
+  useEffect(() => {
+    document.title = `Movie | ${title}`;
+    return function () {
+      if (!title) return;
+      document.title = "usePopcorn";
+    };
+  }, [title]);
+
   return (
     <div className="details">
       {isLoading && <Loader />}
@@ -84,7 +91,10 @@ function MovieDetails({
             <button className="btn-back" onClick={onCloseMovie}>
               &larr;
             </button>
-            <img src={poster} alt={`Poster of ${movie}`} />
+            <img
+              src={poster !== "N/A" ? poster : "/ImageNotFound.png"}
+              alt={`Poster of ${title}`}
+            />
             <div className="details-overview">
               <h2>{title}</h2>
               <p>

@@ -1,7 +1,10 @@
 function WatchedListItem({ movie, onDeleteItem }) {
   return (
     <li>
-      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <img
+        src={movie.poster !== "N/A" ? movie.poster : "/ImageNotFound.png"}
+        alt={`${movie.title} poster`}
+      />
       <h3>{movie.title}</h3>
       <div>
         <p>
