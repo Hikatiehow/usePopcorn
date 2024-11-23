@@ -46,6 +46,25 @@ function MovieDetails({
     onCloseMovie();
   }
 
+  useEffect(
+    function () {
+      //USE EFFECT FOR ESCAPE KEY INSERTED HERE AS WE ONLY WANT IT TO BE ATTACHED
+      //WHEN MOVIE DETAILS COMPONENT IS IN THE DOM
+      function callback(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+          console.log("Closing");
+        }
+      }
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
+
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
