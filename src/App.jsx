@@ -39,6 +39,8 @@ export default function App() {
   }
 
   useEffect(
+    //HAVING THIS IN AN EFFECT RATHER THAN UPDATING LOCAL STORAGE IN HANDLE ADD ALLOWS US
+    //TO NOT HAVE TO WRITE DELETE LOGIC IN HANDLE DELETE
     function () {
       localStorage.setItem("watched", JSON.stringify(watched));
     },
