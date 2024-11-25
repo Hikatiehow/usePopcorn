@@ -94,10 +94,14 @@ function MovieDetails({
   }, [selectedID]);
 
   useEffect(() => {
+    if (!title) return; //MUST DO THIS AS TITLE IS UNDEFINED BEFORE THE MOVIE COMES BACK FROM API CALL
     document.title = `Movie | ${title}`;
     return function () {
-      if (!title) return;
+      //CLEAN UP FUNCTION - runs after the component is unmounted
       document.title = "usePopcorn";
+      console.log(`Clean up effect for movie ${title}`);
+      //JAVASCRIPT CLOSURE - a function will always remmeber all
+      //the variables that were present at the time and place that the function was created
     };
   }, [title]);
 
