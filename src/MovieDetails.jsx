@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import { IMAGE_NOT_FOUND_URL } from "./config/constants";
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
@@ -115,11 +116,7 @@ function MovieDetails({
               &larr;
             </button>
             <img
-              src={
-                poster !== "N/A"
-                  ? poster
-                  : `${import.meta.env.BASE_URL}ImageNotFound.png`
-              }
+              src={poster !== "N/A" ? poster : IMAGE_NOT_FOUND_URL}
               alt={`Poster of ${title}`}
             />
             <div className="details-overview">
