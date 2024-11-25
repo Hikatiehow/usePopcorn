@@ -61,8 +61,6 @@ Explore the app to:
 - Rate movies.
 - Remove movies from your watchlist.
 
-```
-
 ## Learnings
 
 Key takeaways from the project:
