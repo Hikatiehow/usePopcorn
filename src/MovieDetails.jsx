@@ -115,7 +115,11 @@ function MovieDetails({
               &larr;
             </button>
             <img
-              src={poster !== "N/A" ? poster : "/ImageNotFound.png"}
+              src={
+                poster !== "N/A"
+                  ? poster
+                  : `${import.meta.env.BASE_URL}ImageNotFound.png`
+              }
               alt={`Poster of ${title}`}
             />
             <div className="details-overview">
