@@ -41,6 +41,10 @@ export default function App() {
     );
   }
 
+  function handleSelectedID(id) {
+    setSelectedID((currSelectedID) => (currSelectedID === id ? null : id));
+  }
+
   // useEffect(
   //   //HAVING THIS IN AN EFFECT RATHER THAN UPDATING LOCAL STORAGE IN HANDLE ADD ALLOWS US
   //   //TO NOT HAVE TO WRITE DELETE LOGIC IN HANDLE DELETE
@@ -102,7 +106,10 @@ export default function App() {
         <Box>
           {isLoading && <Loader />}
           {!isLoading && !error && (
-            <MovieList movies={movies} setSelectedID={setSelectedID} />
+            <MovieList
+              movies={movies}
+              setSelectedID={(id) => handleSelectedID(id)}
+            />
           )}
           {error && <ErrorMessage message={error} />}
         </Box>
