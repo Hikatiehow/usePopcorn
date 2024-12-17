@@ -9,15 +9,18 @@ import WatchedSummary from "./WatchedSummary";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("watched");
-    return storedValue ? JSON.parse(storedValue) : [];
-  });
+  // const [watched, setWatched] = useState(function () {
+  //   const storedValue = localStorage.getItem("watched");
+  //   return storedValue ? JSON.parse(storedValue) : [];
+  // });
+
+  const [watched, setWatched] = useLocalStorageState([], "watched");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
@@ -38,14 +41,14 @@ export default function App() {
     );
   }
 
-  useEffect(
-    //HAVING THIS IN AN EFFECT RATHER THAN UPDATING LOCAL STORAGE IN HANDLE ADD ALLOWS US
-    //TO NOT HAVE TO WRITE DELETE LOGIC IN HANDLE DELETE
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
+  // useEffect(
+  //   //HAVING THIS IN AN EFFECT RATHER THAN UPDATING LOCAL STORAGE IN HANDLE ADD ALLOWS US
+  //   //TO NOT HAVE TO WRITE DELETE LOGIC IN HANDLE DELETE
+  //   function () {
+  //     localStorage.setItem("watched", JSON.stringify(watched));
+  //   },
+  //   [watched]
+  // );
 
   useEffect(() => {
     const controller = new AbortController();
